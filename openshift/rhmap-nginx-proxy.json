@@ -72,7 +72,7 @@
                         "containers": [
                             {
                                 "name": "nginx-proxy",
-                                "image": "wtrocki/nginx-proxy",
+                                "image": "rhmap/nginx-18-centos",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
