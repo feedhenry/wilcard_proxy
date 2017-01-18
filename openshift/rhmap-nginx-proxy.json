@@ -13,6 +13,11 @@
             "value": "http://localhost",
             "description": "OpenShift router domain that would be used to proxy to subdomains",
             "required": true
+        },{
+            "name": "RHMAP_PLATFORM_PATH",
+            "value": "/box/srv/1.1/",
+            "description": "Set to this environment variable to  `/` if you want to expose platform UI to public internet traffic. Ignore otherwise",
+            "required": false
         },
         {
             "name": "EXTERNAL_ROUTE",
@@ -78,6 +83,9 @@
                                     {
                                         "name": "BASE_HOST",
                                         "value": "${BASE_HOST}"
+                                    }, {
+                                        "name": "RHMAP_PLATFORM_PATH",
+                                        "value": "${RHMAP_PLATFORM_PATH}"
                                     }
                                 ],
                                 "resources": {},
