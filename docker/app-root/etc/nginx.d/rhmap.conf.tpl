@@ -48,5 +48,10 @@ http {
         location = /favicon.ico {
             log_not_found off;
         }
+
+        location / {
+            root   /opt/app-root/src;
+            index  index.html;
+        }
     }
 }
