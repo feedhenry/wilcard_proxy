@@ -14,7 +14,7 @@ RUN chmod 777 -Rf /opt/app-root/
 ## Default values for required environment variables
 ENV DNS_SERVER=8.8.8.8 \
     BASE_HOST=localhost  \
-    LOG_LEVEL=info \
+    LOG_LEVEL=error \
     RHMAP_PLATFORM_PATH=/box/srv/1.1/
 
 ## Default user from upstream image

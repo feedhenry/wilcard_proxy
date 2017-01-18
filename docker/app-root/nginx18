@@ -12,7 +12,11 @@ envsubst '${DNS_SERVER}
           ${BASE_HOST}
           ${RHMAP_PLATFORM_PATH}
           ${NGINX_CONFIGURATION_PATH}
-          ${LOG_LEVEL}' < "$NGINX_CONFIGURATION_PATH/rhmap.conf.tpl" > "$NGINX_CONFIGURATION_PATH/rhmap.conf"
+          ${LOG_LEVEL}' < "${NGINX_CONFIGURATION_PATH}/rhmap.conf.tpl" > "${NGINX_CONFIGURATION_PATH}/rhmap.conf"
 
 echo "Starting nginx server"
-exec $STI_SCRIPTS_PATH/run
+
+source /opt/app-root/etc/generate_container_user
+
+exec nginx -c ${NGINX_CONFIGURATION_PATH}/rhmap.conf
+
