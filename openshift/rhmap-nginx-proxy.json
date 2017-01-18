@@ -1,0 +1,178 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+
+        "name": "nginx-proxy",
+        "description": "RHMAP proxy",
+        "tags": "rhmap,mobile,nginx,proxy"
+    },        
+    "parameters": [
+        {
+            "name": "BASE_HOST",
+            "value": "http://localhost",
+            "description": "OpenShift router domain that would be used to proxy to subdomains",
+            "required": true
+        },
+        {
+            "name": "EXTERNAL_ROUTE",
+            "value": "",
+            "description": "External route to be created on router. Leave empty to autogenerate",
+            "required": false
+        }
+    ],
+    "objects": [
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "nginx-proxy",
+                "labels": {
+                    "app": "nginx-proxy"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "rollingParams": {
+                        "updatePeriodSeconds": 1,
+                        "intervalSeconds": 1,
+                        "timeoutSeconds": 600,
+                        "maxUnavailable": "25%",
+                        "maxSurge": "25%"
+                    },
+                    "resources": {}
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "app": "nginx-proxy",
+                    "deploymentconfig": "nginx-proxy"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "nginx-proxy",
+                            "deploymentconfig": "nginx-proxy"
+                        },
+                        "annotations": {}
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "name": "nginx-proxy",
+                                "image": "wtrocki/nginx-proxy",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "BASE_HOST",
+                                        "value": "${BASE_HOST}"
+                                    }
+                                ],
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "imagePullPolicy": "Always"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst"
+                    }
+                }
+            },
+            "status": {
+                "observedGeneration": 2,
+                "replicas": 1,
+                "updatedReplicas": 1,
+                "unavailableReplicas": 1
+            }
+        },
+        {
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "proxy-route",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "nginx-proxy"
+                },
+                "annotations": {
+                    "openshift.io/host.generated": "true"
+                }
+            },
+            "spec": {
+                "host": "${EXTERNAL_ROUTE}",
+                "to": {
+                    "kind": "Service",
+                    "name": "nginx-proxy",
+                    "weight": 100
+                },
+                "port": {
+                    "targetPort": "8080-tcp"
+                },
+                "tls": {
+                    "termination": "edge",
+                    "insecureEdgeTerminationPolicy": "Redirect"
+                }
+            },
+            "status": {
+                "ingress": [
+                    {
+                        "host": "proxy-route-wtr-proxy.osm3.feedhenry.net",
+                        "routerName": "router",
+                        "conditions": [
+                            {
+                                "type": "Admitted",
+                                "status": "True",
+                                "lastTransitionTime": "2016-12-28T19:02:00Z"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "nginx-proxy",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "nginx-proxy"
+                },
+                "annotations": {
+                    "openshift.io/generated-by": "OpenShiftWebConsole"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "protocol": "TCP",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentconfig": "nginx-proxy"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ]
+}
