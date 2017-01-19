@@ -24,7 +24,7 @@ http {
         ## Mobile app init (retrieving the actual app url basing on connection tag)
         location ~* ^/core/([^/]+)${RHMAP_PLATFORM_PATH}(.*) {
             proxy_pass http://$1.${BASE_HOST}${RHMAP_PLATFORM_PATH}$2$is_args$args;
-            proxy_redirect ${BASE_HOST} http://$http_host/core/$1;
+            proxy_redirect http://${BASE_HOST} http://$http_host/core/$1;
             proxy_cookie_path / /core/$1;
         }
 
@@ -32,14 +32,14 @@ http {
         ## Core would need to call mbaas metrics endpoints to determine if it's working properly.
         location ~* ^/mbaas/([^/]+)/(.*) {
             proxy_pass http://$1.${BASE_HOST}/$2$is_args$args;
-            proxy_redirect ${BASE_HOST} /mbaas/$1;
+            proxy_redirect http://${BASE_HOST} /mbaas/$1;
             proxy_cookie_path / /mbaas/$1;
         }
 
         ## Expose url to application source code (git repository)
         location ~* ^/${GIT_PATH}/(.*) {
             proxy_pass http://${GIT_PATH}.${BASE_HOST}/$1$is_args$args;
-            proxy_redirect ${BASE_HOST} /${GIT_PATH};
+            proxy_redirect http://${BASE_HOST} /${GIT_PATH};
             proxy_cookie_path / /${GIT_PATH};
         }
 
