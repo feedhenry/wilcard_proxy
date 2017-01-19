@@ -1,4 +1,4 @@
-## Open Shift Wildcard Proxy
+## OpenShift Wildcard Proxy
 
 Universal RHMAP platform proxy that can be used to map core and 
 mbaas requests outside OpenShift environment.
