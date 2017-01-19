@@ -145,7 +145,7 @@
                 },
                 "type": "ClusterIP",
                 "sessionAffinity": "None"
-            },
+            }
         }
     ]
 }

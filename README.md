@@ -41,6 +41,10 @@ It represents openshift router dns without wildcard.
 Set to this environment variable to  `/` if you want to expose platform UI 
 to public internet traffic. Ignore otherwise
 
+> GIT_PATH `optional`
+
+Set GIT_PATH to `false` if you wish to disable public git routes. Ignore otherwise
+
 > DNS_SERVER `optional`
 
 DNS server that would be used to query subdomains from BASE_HOST 
