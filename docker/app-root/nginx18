@@ -5,12 +5,13 @@ echo "Generating nginx configuration:
       DNS SERVER ${DNS_SERVER}
       BASE_HOST ${BASE_HOST}
       RHMAP_PLATFORM_PATH ${RHMAP_PLATFORM_PATH}
+      GIT_PATH ${GIT_PATH}
       LOG_LEVEL ${LOG_LEVEL}
 " 
-
 envsubst '${DNS_SERVER}
           ${BASE_HOST}
           ${RHMAP_PLATFORM_PATH}
+          ${GIT_PATH}
           ${NGINX_CONFIGURATION_PATH}
           ${LOG_LEVEL}' < "${NGINX_CONFIGURATION_PATH}/rhmap.conf.tpl" > "${NGINX_CONFIGURATION_PATH}/rhmap.conf"
 
