@@ -14,7 +14,7 @@ and I would map first element of the path into subdomain internally.
 
 To install proxy on openshift use supplied template
 
-    oc new-app -f openshift/rhmap-nginx-proxy.json
+    oc new-app -f openshift/nginx-proxy.json
 
 ## Running on Docker
 
@@ -22,11 +22,11 @@ Proxy can be launched on any operating system that supports docker (Windows, Lin
 
 To run service pull image from registry:
 
-    docker pull rhmap/nginx-18-centos
+    docker pull feedhenry/wildcard-proxy-centos
 
 Run downloaded image 
 
-    docker run -it -e BASE_HOST=test-host.com -p 80:8080 rhmap/nginx-18-centos
+    docker run -it -e BASE_HOST=test-host.com -p 80:8080 feedhenry/wildcard-proxy-centos
 
 ## Environment variables
 
@@ -40,6 +40,10 @@ It represents openshift router dns without wildcard.
 
 Set to this environment variable to  `/` if you want to expose platform UI 
 to public internet traffic. Ignore otherwise
+
+> GIT_PATH `optional`
+
+Set GIT_PATH to `false` if you wish to disable public git routes. Ignore otherwise
 
 > DNS_SERVER `optional`
 
