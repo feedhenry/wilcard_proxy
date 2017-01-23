@@ -20,19 +20,19 @@ http {
         resolver ${DNS_SERVER};
         access_log /dev/stdout;
 
-        ## Expose core platform millicore and security endpoints that are used to perform 
-        ## Mobile app init (retrieving the actual app url basing on connection tag)
-        location /box/srv/1.1/ {
-            proxy_pass ${PLATFORM_URL}/$request_uri;
-        }
- 
         ## Expose direct routes to applications running behind mbaas containers.
         ## Remap routes to subdomain part used internally by platform
-        location ~* ^/app/([^/]+)/(.*) {
+        location ~* ^/([^/]+)(.*) {
             proxy_pass https://$1.${BASE_HOST}/$2$is_args$args;
-            proxy_redirect https://$1.${BASE_HOST} /app/$1;
-            proxy_redirect / http://$http_host/app/$1/;
-            proxy_cookie_path / /app/$1;
+            proxy_redirect https://$1.${BASE_HOST} /$1;
+            proxy_redirect / http://$http_host/$1/;
+            proxy_cookie_path / /$1;
+        }
+
+        ## Expose core platform millicore and security endpoints that are used to perform 
+        ## Mobile app init (retrieving the actual app url basing on connection tag)
+        location ^~ /box/srv/1.1/ {
+            proxy_pass ${PLATFORM_URL}/$request_uri;
         }
 
         location = /favicon.ico {
