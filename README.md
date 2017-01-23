@@ -22,11 +22,11 @@ Proxy can be launched on any operating system that supports docker (Windows, Lin
 
 To run service pull image from registry:
 
-    docker pull rhmap/nginx-18-centos
+    docker pull feedhenry/wildcard-proxy-centos
 
 Run downloaded image 
 
-    docker run -it -e BASE_HOST=test-host.com -p 80:8080 rhmap/nginx-18-centos
+    docker run -it -e BASE_HOST=test-host.com -p 80:8080 feedhenry/wildcard-proxy-centos
 
 ## Environment variables
 
