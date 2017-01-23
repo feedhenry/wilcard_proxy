@@ -82,8 +82,8 @@
                                         "name": "BASE_HOST",
                                         "value": "${BASE_HOST}"
                                     }, {
-                                        "name": "RHMAP_PLATFORM_PATH",
-                                        "value": "${RHMAP_PLATFORM_PATH}"
+                                        "name": "PLATFORM_URL",
+                                        "value": "${PLATFORM_URL}"
                                     }
                                 ],
                                 "resources": {},
@@ -146,7 +146,7 @@
                 },
                 "type": "ClusterIP",
                 "sessionAffinity": "None"
-            },
+            }
         }
     ]
 }
