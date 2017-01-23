@@ -36,10 +36,9 @@ Run downloaded image
 Full base host url that would be used to proxy to the mbaas, core and apps.
 It represents openshift router dns without wildcard.
 
-> RHMAP_PLATFORM_PATH `optional`
+> PLATFORM_URL `optional`
 
-Set to this environment variable to  `/` if you want to expose platform UI 
-to public internet traffic. Ignore otherwise
+Full URL to core platform. For example https://rhmap.corehost.net
 
 > DNS_SERVER `optional`
 
