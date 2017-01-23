@@ -70,7 +70,7 @@
                         "containers": [
                             {
                                 "name": "nginx-proxy",
-                                "image": "rhmap/nginx-18-centos",
+                                "image": "feedhenry/wildcard-proxy-centos",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
