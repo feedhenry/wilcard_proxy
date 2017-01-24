@@ -39,7 +39,7 @@ http {
             log_not_found off;
         }
 
-        location / {
+        location = / {
             root   /opt/app-root/src;
             index  index.html;
         }
