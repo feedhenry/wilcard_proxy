@@ -35,6 +35,11 @@ http {
             proxy_pass ${PLATFORM_URL}/$request_uri;
         }
 
+        ## Expose core platform push functionalities
+        location ^~ /api/v2/ag-push/ {
+            proxy_pass ${PLATFORM_URL}/$request_uri;
+        }
+
         location = /favicon.ico {
             log_not_found off;
         }
