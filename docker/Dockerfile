@@ -15,8 +15,8 @@ RUN chmod 777 -Rf /opt/app-root/
 ENV DNS_SERVER=8.8.8.8 \
     BASE_HOST=localhost  \
     PLATFORM_URL=localhost \
+    BASE_PROTOCOL=http \
     LOG_LEVEL=error
-
 
 ## Default user from upstream image
 USER 1001

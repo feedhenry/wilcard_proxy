@@ -4,12 +4,14 @@ set -e -o pipefail
 echo "Generating nginx configuration:
       DNS SERVER ${DNS_SERVER}
       BASE_HOST ${BASE_HOST}
+      BASE_PROTOCOL ${BASE_PROTOCOL}
       PLATFORM_URL ${PLATFORM_URL}
       LOG_LEVEL ${LOG_LEVEL}
 " 
 
 envsubst '${DNS_SERVER}
           ${BASE_HOST}
+          ${BASE_PROTOCOL}
           ${PLATFORM_URL}
           ${NGINX_CONFIGURATION_PATH}
           ${LOG_LEVEL}' < "${NGINX_CONFIGURATION_PATH}/rhmap.conf.tpl" > "${NGINX_CONFIGURATION_PATH}/rhmap.conf"

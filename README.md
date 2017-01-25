@@ -28,10 +28,14 @@ Run downloaded image
 
 ## Environment variables
 
->  BASE_HOST `required`
+> BASE_HOST `required`
 
 Full base host url that would be used to proxy to the RHMAP applications.
 It represents the domain name of the OpenShift router DNS name without the first wildcard subdomain.
+
+> BASE_PROTOCOL `optional`
+
+Protocol used to connect to the service
 
 > PLATFORM_URL `optional`
 
