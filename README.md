@@ -48,8 +48,17 @@ Nginx log level. By default it's INFO.
 
 ## CONTRIBUTING
 
-To contribute to this repository, fork and create a pull request against master. Changes in this repository will need to be reflected in
-the OpenShift templates repositroy that are provided with the RHMAP product. Maintainers of this project are responsible for this update to [fh-core-openshift-templates](https://github.com/fheng/fh-core-openshift-templates)
+To contribute to this repository, fork and create a pull request against master.
+
+### Maintainers
+
+Changes in this repository will need to be reflected in the OpenShift templates repository that are provided with the RHMAP product. Maintainers of this project are responsible for this update to [fh-core-openshift-templates](https://github.com/fheng/fh-core-openshift-templates). Any changes being made to this project should also result in a corresponding change to the VERSION file. The OpenShift template should be updated to reflect this change and a Docker image should be built and pushed using these values:
+
+```
+cd docker
+docker build -t ${FH_WILDCARD_PROXY_IMAGE}:${FH_WILDCARD_PROXY_IMAGE_VERSION} .
+docker push ${FH_WILDCARD_PROXY_IMAGE}:${FH_WILDCARD_PROXY_IMAGE_VERSION}
+```
 
 ## Base image
 

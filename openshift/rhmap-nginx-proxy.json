@@ -5,7 +5,7 @@
         "name": "nginx-proxy",
         "description": "RHMAP proxy",
         "tags": "rhmap,mobile,nginx,proxy"
-    },        
+    },
     "parameters": [
         {
             "name": "BASE_HOST",
@@ -23,6 +23,18 @@
             "value": "",
             "description": "External route to be created on router. Leave empty to autogenerate",
             "required": false
+        },
+        {
+             "name": "FH_WILDCARD_PROXY_IMAGE",
+             "value": "feedhenry/wildcard-proxy-centos",
+             "description": "The name of the Wildcard Proxy image",
+             "required": true
+        },
+        {
+             "name": "FH_WILDCARD_PROXY_IMAGE_VERSION",
+             "value": "1.0.0",
+             "description": "The version for the FH_WILDCARD_PROXY_IMAGE",
+             "required": true
         }
     ],
     "objects": [
@@ -70,7 +82,7 @@
                         "containers": [
                             {
                                 "name": "nginx-proxy",
-                                "image": "feedhenry/wildcard-proxy-centos",
+                                "image": "${FH_WILDCARD_PROXY_IMAGE}:${FH_WILDCARD_PROXY_IMAGE_VERSION}",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
