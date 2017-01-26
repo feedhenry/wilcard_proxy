@@ -23,7 +23,7 @@ http {
         ## Expose direct routes to applications running behind mbaas containers.
         ## Remap routes to subdomain part used internally by platform
         location ~* ^/([^/]+)(.*) {
-            proxy_pass ${BASE_PROTOCOL}://$1.${BASE_HOST}/$2$is_args$args;
+            proxy_pass ${BASE_PROTOCOL}://$1.${BASE_HOST}$2$is_args$args;
             proxy_redirect ${BASE_PROTOCOL}://$1.${BASE_HOST} /$1;
             proxy_redirect / ${BASE_PROTOCOL}://$http_host/$1/;
             proxy_cookie_path / /$1;
