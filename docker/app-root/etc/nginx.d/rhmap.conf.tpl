@@ -17,7 +17,7 @@ http {
     server {
         include $NGINX_CONFIGURATION_PATH/proxy.conf;
         listen 8080 default_server;
-        resolver ${DNS_SERVER};
+        resolver ${DNS_SERVER} valid=30s;
         access_log /dev/stdout;
 
         ## Expose direct routes to applications running behind mbaas containers.
