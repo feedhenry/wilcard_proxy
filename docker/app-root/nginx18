@@ -1,24 +1,42 @@
 #!/usr/bin/env bash
 set -e -o pipefail
 
-echo "Generating nginx configuration:
-      DNS SERVER ${DNS_SERVER}
-      BASE_HOST ${BASE_HOST}
-      BASE_PROTOCOL ${BASE_PROTOCOL}
-      PLATFORM_URL ${PLATFORM_URL}
-      LOG_LEVEL ${LOG_LEVEL}
-" 
+rhmap::start_nginx() {
+      echo "Starting nginx server"
+      exec nginx -c ${NGINX_CONFIGURATION_PATH}/rhmap.conf
+}
 
-envsubst '${DNS_SERVER}
-          ${BASE_HOST}
-          ${BASE_PROTOCOL}
-          ${PLATFORM_URL}
-          ${NGINX_CONFIGURATION_PATH}
-          ${LOG_LEVEL}' < "${NGINX_CONFIGURATION_PATH}/rhmap.conf.tpl" > "${NGINX_CONFIGURATION_PATH}/rhmap.conf"
+rhmap::setup_dns_env () {
+      if [ -z "$DNS_SERVER" ]; then
+            export DNS_SERVER=`cat /etc/resolv.conf | grep "nameserver" | awk '{print $2}' | tr '\n' ' '`
+            echo "Using system dns server ${DNS_SERVER}"
+      else
+            echo "Using user defined dns server: ${DNS_SERVER}"
+      fi  
+}
 
-echo "Starting nginx server"
+rhmap::inject_env_vars() {
+      echo "Input parameters for nginx configuration:
+            DNS SERVER ${DNS_SERVER}
+            BASE_HOST ${BASE_HOST}
+            BASE_PROTOCOL ${BASE_PROTOCOL}
+            PLATFORM_URL ${PLATFORM_URL}
+            LOG_LEVEL ${LOG_LEVEL}
+      " 
+      rhmap::setup_dns_env
+
+      ## Replace only specified environment variables in files
+      envsubst '${DNS_SERVER}
+            ${BASE_HOST}
+            ${BASE_PROTOCOL}
+            ${PLATFORM_URL}
+            ${NGINX_CONFIGURATION_PATH}
+            ${LOG_LEVEL}' < "${NGINX_CONFIGURATION_PATH}/rhmap.conf.tpl" > "${NGINX_CONFIGURATION_PATH}/rhmap.conf"
+}
+
 
 source /opt/app-root/etc/generate_container_user
 
-exec nginx -c ${NGINX_CONFIGURATION_PATH}/rhmap.conf
+rhmap::inject_env_vars
+rhmap::start_nginx
 

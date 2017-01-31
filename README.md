@@ -45,6 +45,7 @@ Full URL to RHMAP Core platform. For example https://rhmap.corehost.net
 
 DNS server that should be used to query subdomains from BASE_HOST
 For internal networks you would need to specify your local DNS server.
+If missing default system (docker dns server) would be used.
 
 > LOG_LEVEL `optional`
 
