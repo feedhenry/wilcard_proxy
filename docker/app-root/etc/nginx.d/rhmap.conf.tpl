@@ -46,7 +46,7 @@ http {
 
         location = / {
             root   /opt/app-root/src;
-            index  index.html;
+            try_files /index.html /index.html;
         }
     }
 }
