@@ -22,14 +22,14 @@ http {
 
         ## Expose direct routes to applications running behind mbaas containers.
         ## Remap routes to subdomain part used internally by platform
-        location ~* ^/([^/]+)(.*) {
-            proxy_pass ${BASE_PROTOCOL}://$1.${BASE_HOST}$2$is_args$args;
+        location ~* ^/([^/]+)/([^/]+)(.*) {
+            proxy_pass ${BASE_PROTOCOL}://$2.rhmap-rhmap-43-core-$1.svc.cluster.local:8001$3$is_args$args;
             proxy_redirect ${BASE_PROTOCOL}://$1.${BASE_HOST} /$1;
             proxy_redirect / ${BASE_PROTOCOL}://$http_host/$1/;
             proxy_cookie_path / /$1;
         }
 
-        ## Expose core platform millicore and security endpoints that are used to perform 
+        ## Expose core platform millicore and security endpoints that are used to perform
         ## Mobile app init (retrieving the actual app url basing on connection tag)
         location ^~ /box/srv/1.1/ {
             proxy_pass ${PLATFORM_URL}/$request_uri;
