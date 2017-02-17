@@ -29,15 +29,15 @@ http {
             proxy_cookie_path / /$1;
         }
 
-        ## Expose core platform millicore and security endpoints that are used to perform 
+        ## Expose core platform millicore and security endpoints that are used to perform
         ## Mobile app init (retrieving the actual app url basing on connection tag)
         location ^~ /box/srv/1.1/ {
-            proxy_pass ${PLATFORM_URL}/$request_uri;
+            proxy_pass rhmap-proxy:8010/$request_uri;
         }
 
         ## Expose core platform push functionalities
         location ^~ /api/v2/ag-push/ {
-            proxy_pass ${PLATFORM_URL}/$request_uri;
+            proxy_pass rhmap-proxy:8010/$request_uri;
         }
 
         location = /favicon.ico {
