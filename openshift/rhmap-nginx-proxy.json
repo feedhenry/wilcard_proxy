@@ -100,8 +100,7 @@
                                     }
                                 ],
                                 "resources": {},
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "Always"
+                                "terminationMessagePath": "/dev/termination-log"
                             }
                         ],
                         "restartPolicy": "Always",
