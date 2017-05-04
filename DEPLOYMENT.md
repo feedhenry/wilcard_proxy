@@ -63,7 +63,7 @@ In situations where there are existing proxies within an infrastructure, these w
 
 **_3. DNS_**
 
-By default, RHMAP Proxy will use the default OpenShift DNS servr to resolve internal domain names. If you are using a custom DNS server within your network, you should configure this value via an environment variable.
+By default, RHMAP Proxy will use the default OpenShift DNS server to resolve internal domain names. If you are using a custom DNS server within your network, you should configure this value via an environment variable.
 
 Run the following command specifying your DNS server IP in the RHMAP Proxy deployment.
 

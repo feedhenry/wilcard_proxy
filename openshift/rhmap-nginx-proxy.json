@@ -83,6 +83,7 @@
                             {
                                 "name": "nginx-proxy",
                                 "image": "${FH_WILDCARD_PROXY_IMAGE}:${FH_WILDCARD_PROXY_IMAGE_VERSION}",
+                                "imagePullPolicy": "IfNotPresent",
                                 "ports": [
                                     {
                                         "containerPort": 8080,
@@ -99,8 +100,7 @@
                                     }
                                 ],
                                 "resources": {},
-                                "terminationMessagePath": "/dev/termination-log",
-                                "imagePullPolicy": "Always"
+                                "terminationMessagePath": "/dev/termination-log"
                             }
                         ],
                         "restartPolicy": "Always",
